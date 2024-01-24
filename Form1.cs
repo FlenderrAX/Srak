@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,6 +31,8 @@ namespace Srak
 
         bool isActive = false;
         Keys usrHotkey = Keys.None;
+        Keys usrKybdHotkey = Keys.None;
+        string clickAmount = "single";
         string usrBtn = "left";
 
         public Srak()
@@ -52,7 +55,7 @@ namespace Srak
 
         private void Srak_Load(object sender, EventArgs e)
         {
-            enableAuto.Click += (s, ev) => ToggleAuto();
+            enableMouseAuto.Click += (s, ev) => ToggleAuto();
             disableAuto.Click += (s, ev) => ToggleAuto();
             msTextbox.Text = "100";
 
@@ -62,11 +65,26 @@ namespace Srak
             clickCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
 
             hotkeyCombobox.Items.Clear();
-            hotkeyCombobox.Items.AddRange(new[] { "F6", "SPACE", "K", "PageUP" });
+            hotkeyCombobox.Items.AddRange(new[] {"F6", "SPACE", "K", "PageUp"});
             hotkeyCombobox.SelectedIndex = 0;
             hotkeyCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            groupBox1.Text = "Mouse";
+            kybdHotkeys.Items.Clear();
+            kybdHotkeys.Items.AddRange(new[] {"F7", "J", "PageDown"});
+            kybdHotkeys.SelectedIndex = 0;
+            kybdHotkeys.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            mouseGBox.Text = "Mouse";
+            kybdGBox.Text = "Keyboard";
+
+            insertKey.Text = "Change Key";
+            kybdKeyLabel.Text = "Space";
+
+            clickNb.Text = "Click amount";
+            singleClick.Text = "Single";
+            doubleClick.Text = "Double";
+
+            singleClick.Checked = true;
 
             hotkeyLabel.Location = new System.Drawing.Point(5, 20);
             hotkeyCombobox.Location = new System.Drawing.Point(10, 40);
@@ -77,7 +95,9 @@ namespace Srak
             msLabel.Location = new System.Drawing.Point(5, 145);
             msTextbox.Location = new System.Drawing.Point(10, 165);
 
-            groupBox1.Controls.AddRange(new Control[] {hotkeyCombobox, hotkeyLabel, clickCombo, clickCombobox, msTextbox, msLabel});
+            kybdGBox.Controls.AddRange(new Control[] {insertKey, kybdKeyLabel, kybdHkLabel, kybdHotkeys});
+            mouseGBox.Controls.AddRange(new Control[] {hotkeyCombobox, hotkeyLabel, clickCombo, clickCombobox, msTextbox, msLabel});
+            clickNb.Controls.AddRange(new Control[] {singleClick, doubleClick});
         }
 
         private void Srak_FormClosing(object sender, FormClosingEventArgs e)
@@ -98,13 +118,30 @@ namespace Srak
                 case "K":
                     usrHotkey = Keys.K;
                     break;
-                case "PageUP":
+                case "PageUp":
                     usrHotkey = Keys.PageUp;
                     break;
             }
 
-            enableAuto.Text = $"Enable Autoclick ({usrHotkey})";
+            enableMouseAuto.Text = $"Enable Autoclick ({usrHotkey})";
             disableAuto.Text = $"Disable Autoclick ({usrHotkey})";
+        }
+        private void ChangedKybdCommited_Click(object sender, EventArgs e)
+        {
+            switch (kybdHotkeys.SelectedItem.ToString())
+            {
+                case "F7":
+                    usrKybdHotkey = Keys.F7;
+                    break;
+                case "J":
+                    usrKybdHotkey = Keys.J;
+                    break;
+                case "PageDown":
+                    usrKybdHotkey = Keys.PageDown;
+                    break;
+            }
+
+            enableKybdAuto.Text = $"Enable Autoclick ({usrKybdHotkey})";
         }
 
         private void mouseBtn_ChangeCommited(object sender, EventArgs e)
@@ -118,7 +155,7 @@ namespace Srak
             if (isActive)
             {
                 msTextbox.Enabled = false;
-                enableAuto.Enabled = false;
+                enableMouseAuto.Enabled = false;
                 disableAuto.Enabled = true;
                 await Task.Run(() =>
                 {
@@ -128,7 +165,12 @@ namespace Srak
                         {
                             this.Invoke(new Action(() =>
                             {
-                                PerformMouseClick(usrBtn, Cursor.Position.X, Cursor.Position.Y);
+                                if (clickAmount.Equals("single")) {
+                                    PerformMouseClick(usrBtn, Cursor.Position.X, Cursor.Position.Y);
+                                } 
+                                else if (clickAmount.Equals("double")) {
+                                    PerformDoubleMouseClick(usrBtn, Cursor.Position.X, Cursor.Position.Y);
+                                }
                             }));
 
                             int ms;
@@ -140,9 +182,29 @@ namespace Srak
             }
             else
             {
-                enableAuto.Enabled = true;
+                enableMouseAuto.Enabled = true;
                 disableAuto.Enabled = false;
                 msTextbox.Enabled = true;
+            }
+        }
+
+        private static void PerformDoubleMouseClick(string button, int x, int y)
+        {
+            SetCursorPos(x, y);
+            switch (button)
+            {
+                case "left":
+                    mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, UIntPtr.Zero);
+                    mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, UIntPtr.Zero);
+                    mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, UIntPtr.Zero);
+                    mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, UIntPtr.Zero);
+                    break;
+                case "right":
+                    mouse_event(MOUSEEVENTF_RIGHTDOWN, x, y, 0, UIntPtr.Zero);
+                    mouse_event(MOUSEEVENTF_RIGHTUP, x, y, 0, UIntPtr.Zero);
+                    mouse_event(MOUSEEVENTF_RIGHTDOWN, x, y, 0, UIntPtr.Zero);
+                    mouse_event(MOUSEEVENTF_RIGHTUP, x, y, 0, UIntPtr.Zero);
+                    break;
             }
         }
 
@@ -251,6 +313,16 @@ namespace Srak
             private delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
 
             #endregion
+        }
+
+        private void singleClick_CheckedChanged(object sender, EventArgs e)
+        {
+            if (singleClick.Checked) {
+                clickAmount = "single";
+            }
+            else {
+                clickAmount = "double";
+            }
         }
     }
 }

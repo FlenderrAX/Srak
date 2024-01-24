@@ -28,27 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.enableAuto = new System.Windows.Forms.Button();
+            this.enableMouseAuto = new System.Windows.Forms.Button();
             this.disableAuto = new System.Windows.Forms.Button();
             this.clickCombobox = new System.Windows.Forms.ComboBox();
             this.msLabel = new System.Windows.Forms.Label();
             this.clickCombo = new System.Windows.Forms.Label();
             this.hotkeyCombobox = new System.Windows.Forms.ComboBox();
             this.hotkeyLabel = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.mouseGBox = new System.Windows.Forms.GroupBox();
             this.msTextbox = new System.Windows.Forms.NumericUpDown();
-            this.groupBox1.SuspendLayout();
+            this.kybdGBox = new System.Windows.Forms.GroupBox();
+            this.insertKey = new System.Windows.Forms.Button();
+            this.kybdKeyLabel = new System.Windows.Forms.Label();
+            this.enableKybdAuto = new System.Windows.Forms.Button();
+            this.kybdHotkeys = new System.Windows.Forms.ComboBox();
+            this.kybdHkLabel = new System.Windows.Forms.Label();
+            this.singleClick = new System.Windows.Forms.RadioButton();
+            this.doubleClick = new System.Windows.Forms.RadioButton();
+            this.clickNb = new System.Windows.Forms.GroupBox();
+            this.mouseGBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.msTextbox)).BeginInit();
+            this.kybdGBox.SuspendLayout();
+            this.clickNb.SuspendLayout();
             this.SuspendLayout();
             // 
-            // enableAuto
+            // enableMouseAuto
             // 
-            this.enableAuto.Location = new System.Drawing.Point(16, 368);
-            this.enableAuto.Name = "enableAuto";
-            this.enableAuto.Size = new System.Drawing.Size(210, 70);
-            this.enableAuto.TabIndex = 0;
-            this.enableAuto.Text = "Enable Autoclick (F6)";
-            this.enableAuto.UseVisualStyleBackColor = true;
+            this.enableMouseAuto.Location = new System.Drawing.Point(16, 404);
+            this.enableMouseAuto.Name = "enableMouseAuto";
+            this.enableMouseAuto.Size = new System.Drawing.Size(210, 34);
+            this.enableMouseAuto.TabIndex = 0;
+            this.enableMouseAuto.Text = "Enable Mouse (F6)";
+            this.enableMouseAuto.UseVisualStyleBackColor = true;
             // 
             // disableAuto
             // 
@@ -105,20 +116,20 @@
             this.hotkeyLabel.TabIndex = 7;
             this.hotkeyLabel.Text = "Hotkey";
             // 
-            // groupBox1
+            // mouseGBox
             // 
-            this.groupBox1.Controls.Add(this.msTextbox);
-            this.groupBox1.Controls.Add(this.hotkeyCombobox);
-            this.groupBox1.Controls.Add(this.clickCombobox);
-            this.groupBox1.Controls.Add(this.msLabel);
-            this.groupBox1.Controls.Add(this.hotkeyLabel);
-            this.groupBox1.Controls.Add(this.clickCombo);
-            this.groupBox1.Location = new System.Drawing.Point(246, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 195);
-            this.groupBox1.TabIndex = 9;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.mouseGBox.Controls.Add(this.msTextbox);
+            this.mouseGBox.Controls.Add(this.hotkeyCombobox);
+            this.mouseGBox.Controls.Add(this.clickCombobox);
+            this.mouseGBox.Controls.Add(this.msLabel);
+            this.mouseGBox.Controls.Add(this.hotkeyLabel);
+            this.mouseGBox.Controls.Add(this.clickCombo);
+            this.mouseGBox.Location = new System.Drawing.Point(246, 12);
+            this.mouseGBox.Name = "mouseGBox";
+            this.mouseGBox.Size = new System.Drawing.Size(200, 195);
+            this.mouseGBox.TabIndex = 9;
+            this.mouseGBox.TabStop = false;
+            this.mouseGBox.Text = "groupBox1";
             // 
             // msTextbox
             // 
@@ -127,36 +138,145 @@
             this.msTextbox.Size = new System.Drawing.Size(120, 20);
             this.msTextbox.TabIndex = 8;
             // 
+            // kybdGBox
+            // 
+            this.kybdGBox.Controls.Add(this.kybdHotkeys);
+            this.kybdGBox.Controls.Add(this.kybdHkLabel);
+            this.kybdGBox.Controls.Add(this.kybdKeyLabel);
+            this.kybdGBox.Controls.Add(this.insertKey);
+            this.kybdGBox.Location = new System.Drawing.Point(30, 12);
+            this.kybdGBox.Name = "kybdGBox";
+            this.kybdGBox.Size = new System.Drawing.Size(200, 195);
+            this.kybdGBox.TabIndex = 10;
+            this.kybdGBox.TabStop = false;
+            this.kybdGBox.Text = "groupBox2";
+            // 
+            // insertKey
+            // 
+            this.insertKey.Location = new System.Drawing.Point(7, 45);
+            this.insertKey.Name = "insertKey";
+            this.insertKey.Size = new System.Drawing.Size(108, 23);
+            this.insertKey.TabIndex = 0;
+            this.insertKey.Text = "button1";
+            this.insertKey.UseVisualStyleBackColor = true;
+            // 
+            // kybdKeyLabel
+            // 
+            this.kybdKeyLabel.AutoSize = true;
+            this.kybdKeyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kybdKeyLabel.Location = new System.Drawing.Point(134, 48);
+            this.kybdKeyLabel.Name = "kybdKeyLabel";
+            this.kybdKeyLabel.Size = new System.Drawing.Size(46, 18);
+            this.kybdKeyLabel.TabIndex = 1;
+            this.kybdKeyLabel.Text = "label1";
+            // 
+            // enableKybdAuto
+            // 
+            this.enableKybdAuto.Location = new System.Drawing.Point(16, 368);
+            this.enableKybdAuto.Name = "enableKybdAuto";
+            this.enableKybdAuto.Size = new System.Drawing.Size(210, 34);
+            this.enableKybdAuto.TabIndex = 11;
+            this.enableKybdAuto.Text = "Enable Keyboard (F7)";
+            this.enableKybdAuto.UseVisualStyleBackColor = true;
+            // 
+            // kybdHotkeys
+            // 
+            this.kybdHotkeys.FormattingEnabled = true;
+            this.kybdHotkeys.Location = new System.Drawing.Point(7, 104);
+            this.kybdHotkeys.Name = "kybdHotkeys";
+            this.kybdHotkeys.Size = new System.Drawing.Size(121, 21);
+            this.kybdHotkeys.TabIndex = 9;
+            this.kybdHotkeys.SelectionChangeCommitted += new System.EventHandler(this.ChangedKybdCommited_Click);
+            // 
+            // kybdHkLabel
+            // 
+            this.kybdHkLabel.AutoSize = true;
+            this.kybdHkLabel.Location = new System.Drawing.Point(4, 88);
+            this.kybdHkLabel.Name = "kybdHkLabel";
+            this.kybdHkLabel.Size = new System.Drawing.Size(41, 13);
+            this.kybdHkLabel.TabIndex = 10;
+            this.kybdHkLabel.Text = "Hotkey";
+            // 
+            // singleClick
+            // 
+            this.singleClick.AutoSize = true;
+            this.singleClick.Location = new System.Drawing.Point(7, 35);
+            this.singleClick.Name = "singleClick";
+            this.singleClick.Size = new System.Drawing.Size(85, 17);
+            this.singleClick.TabIndex = 11;
+            this.singleClick.TabStop = true;
+            this.singleClick.Text = "radioButton1";
+            this.singleClick.UseVisualStyleBackColor = true;
+            this.singleClick.CheckedChanged += new System.EventHandler(this.singleClick_CheckedChanged);
+            // 
+            // doubleClick
+            // 
+            this.doubleClick.AutoSize = true;
+            this.doubleClick.Location = new System.Drawing.Point(6, 68);
+            this.doubleClick.Name = "doubleClick";
+            this.doubleClick.Size = new System.Drawing.Size(85, 17);
+            this.doubleClick.TabIndex = 12;
+            this.doubleClick.TabStop = true;
+            this.doubleClick.Text = "radioButton2";
+            this.doubleClick.UseVisualStyleBackColor = true;
+            // 
+            // clickNb
+            // 
+            this.clickNb.Controls.Add(this.singleClick);
+            this.clickNb.Controls.Add(this.doubleClick);
+            this.clickNb.Location = new System.Drawing.Point(30, 213);
+            this.clickNb.Name = "clickNb";
+            this.clickNb.Size = new System.Drawing.Size(115, 100);
+            this.clickNb.TabIndex = 13;
+            this.clickNb.TabStop = false;
+            this.clickNb.Text = "groupBox1";
+            // 
             // Srak
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(458, 450);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.clickNb);
+            this.Controls.Add(this.enableKybdAuto);
+            this.Controls.Add(this.kybdGBox);
+            this.Controls.Add(this.mouseGBox);
             this.Controls.Add(this.disableAuto);
-            this.Controls.Add(this.enableAuto);
+            this.Controls.Add(this.enableMouseAuto);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Srak";
             this.Text = "root";
             this.Load += new System.EventHandler(this.Srak_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.mouseGBox.ResumeLayout(false);
+            this.mouseGBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.msTextbox)).EndInit();
+            this.kybdGBox.ResumeLayout(false);
+            this.kybdGBox.PerformLayout();
+            this.clickNb.ResumeLayout(false);
+            this.clickNb.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button enableAuto;
+        private System.Windows.Forms.Button enableMouseAuto;
         private System.Windows.Forms.Button disableAuto;
         private System.Windows.Forms.ComboBox clickCombobox;
         private System.Windows.Forms.Label msLabel;
         private System.Windows.Forms.Label clickCombo;
         private System.Windows.Forms.ComboBox hotkeyCombobox;
         private System.Windows.Forms.Label hotkeyLabel;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox mouseGBox;
         private System.Windows.Forms.NumericUpDown msTextbox;
+        private System.Windows.Forms.GroupBox kybdGBox;
+        private System.Windows.Forms.Label kybdKeyLabel;
+        private System.Windows.Forms.Button insertKey;
+        private System.Windows.Forms.Button enableKybdAuto;
+        private System.Windows.Forms.ComboBox kybdHotkeys;
+        private System.Windows.Forms.Label kybdHkLabel;
+        private System.Windows.Forms.RadioButton singleClick;
+        private System.Windows.Forms.RadioButton doubleClick;
+        private System.Windows.Forms.GroupBox clickNb;
     }
 }
 
