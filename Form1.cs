@@ -84,20 +84,42 @@ namespace Srak
             singleClick.Text = "Single";
             doubleClick.Text = "Double";
 
+            insertKey.Click += InsertKey_Click;
+
             singleClick.Checked = true;
 
             hotkeyLabel.Location = new System.Drawing.Point(5, 20);
             hotkeyCombobox.Location = new System.Drawing.Point(10, 40);
 
-            clickCombo.Location = new System.Drawing.Point(5, 85);
-            clickCombobox.Location = new System.Drawing.Point(10, 105);
+            clickCombo.Location = new System.Drawing.Point(5, 80);
+            clickCombobox.Location = new System.Drawing.Point(10, 100);
 
-            msLabel.Location = new System.Drawing.Point(5, 145);
-            msTextbox.Location = new System.Drawing.Point(10, 165);
+            msLabel.Location = new System.Drawing.Point(5, 140);
+            msTextbox.Location = new System.Drawing.Point(10, 160);
+
+            sLabel.Location = new System.Drawing.Point(5, 200);
+            sTextbox.Location = new System.Drawing.Point(10, 220);
+
+            mLabel.Location = new System.Drawing.Point(5, 260);
+            mTextbox.Location = new System.Drawing.Point(10, 280);
+
 
             kybdGBox.Controls.AddRange(new Control[] {insertKey, kybdKeyLabel, kybdHkLabel, kybdHotkeys});
-            mouseGBox.Controls.AddRange(new Control[] {hotkeyCombobox, hotkeyLabel, clickCombo, clickCombobox, msTextbox, msLabel});
+            mouseGBox.Controls.AddRange(new Control[] {hotkeyCombobox, hotkeyLabel, clickCombo, clickCombobox, msTextbox, msLabel, sLabel, sTextbox, mLabel, mTextbox});
             clickNb.Controls.AddRange(new Control[] {singleClick, doubleClick});
+        }
+
+        private void _KeyPress(object sender, KeyEventArgs e)
+        {
+            usrKybdHotkey = e.KeyCode;
+        }
+
+        private void InsertKey_Click(object sender, EventArgs e)
+        {
+            insertKey.Text = "Press a key...";
+            this.OnKeyDown(new KeyEventArgs(usrKybdHotkey));
+            kybdKeyLabel.Text = usrKybdHotkey.ToString();
+            insertKey.Text = "Change Key";
         }
 
         private void Srak_FormClosing(object sender, FormClosingEventArgs e)
@@ -155,6 +177,8 @@ namespace Srak
             if (isActive)
             {
                 msTextbox.Enabled = false;
+                sTextbox.Enabled = false;
+                mTextbox.Enabled = false;
                 enableMouseAuto.Enabled = false;
                 disableAuto.Enabled = true;
                 await Task.Run(() =>
@@ -174,8 +198,8 @@ namespace Srak
                             }));
 
                             int ms;
-                            if (int.TryParse(msTextbox.Text, out ms))
-                                Thread.Sleep(ms);
+                            ms = int.Parse(msTextbox.Text) + (int.Parse(sTextbox.Text) * 1000) + (int.Parse(mTextbox.Text) * 60000);
+                            Thread.Sleep(ms);
                         }
                     }
                 });
