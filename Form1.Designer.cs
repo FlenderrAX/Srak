@@ -36,6 +36,10 @@
             this.hotkeyCombobox = new System.Windows.Forms.ComboBox();
             this.hotkeyLabel = new System.Windows.Forms.Label();
             this.mouseGBox = new System.Windows.Forms.GroupBox();
+            this.mTextbox = new System.Windows.Forms.NumericUpDown();
+            this.mLabel = new System.Windows.Forms.Label();
+            this.sTextbox = new System.Windows.Forms.NumericUpDown();
+            this.sLabel = new System.Windows.Forms.Label();
             this.msTextbox = new System.Windows.Forms.NumericUpDown();
             this.kybdGBox = new System.Windows.Forms.GroupBox();
             this.kybdHotkeys = new System.Windows.Forms.ComboBox();
@@ -46,16 +50,12 @@
             this.singleClick = new System.Windows.Forms.RadioButton();
             this.doubleClick = new System.Windows.Forms.RadioButton();
             this.clickNb = new System.Windows.Forms.GroupBox();
-            this.sTextbox = new System.Windows.Forms.NumericUpDown();
-            this.sLabel = new System.Windows.Forms.Label();
-            this.mTextbox = new System.Windows.Forms.NumericUpDown();
-            this.mLabel = new System.Windows.Forms.Label();
             this.mouseGBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mTextbox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sTextbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.msTextbox)).BeginInit();
             this.kybdGBox.SuspendLayout();
             this.clickNb.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sTextbox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mTextbox)).BeginInit();
             this.SuspendLayout();
             // 
             // enableMouseAuto
@@ -141,12 +141,47 @@
             this.mouseGBox.TabStop = false;
             this.mouseGBox.Text = "groupBox1";
             // 
+            // mTextbox
+            // 
+            this.mTextbox.Location = new System.Drawing.Point(6, 266);
+            this.mTextbox.Name = "mTextbox";
+            this.mTextbox.Size = new System.Drawing.Size(120, 20);
+            this.mTextbox.TabIndex = 12;
+            this.mTextbox.Validated += new System.EventHandler(this.mTextbox_Validated);
+            // 
+            // mLabel
+            // 
+            this.mLabel.AutoSize = true;
+            this.mLabel.Location = new System.Drawing.Point(2, 250);
+            this.mLabel.Name = "mLabel";
+            this.mLabel.Size = new System.Drawing.Size(44, 13);
+            this.mLabel.TabIndex = 11;
+            this.mLabel.Text = "Minutes";
+            // 
+            // sTextbox
+            // 
+            this.sTextbox.Location = new System.Drawing.Point(7, 214);
+            this.sTextbox.Name = "sTextbox";
+            this.sTextbox.Size = new System.Drawing.Size(120, 20);
+            this.sTextbox.TabIndex = 10;
+            this.sTextbox.Validated += new System.EventHandler(this.sTextbox_Validated);
+            // 
+            // sLabel
+            // 
+            this.sLabel.AutoSize = true;
+            this.sLabel.Location = new System.Drawing.Point(3, 198);
+            this.sLabel.Name = "sLabel";
+            this.sLabel.Size = new System.Drawing.Size(49, 13);
+            this.sLabel.TabIndex = 9;
+            this.sLabel.Text = "Seconds";
+            // 
             // msTextbox
             // 
             this.msTextbox.Location = new System.Drawing.Point(7, 105);
             this.msTextbox.Name = "msTextbox";
             this.msTextbox.Size = new System.Drawing.Size(120, 20);
             this.msTextbox.TabIndex = 8;
+            this.msTextbox.Validated += new System.EventHandler(this.msTextbox_ValueChanged);
             // 
             // kybdGBox
             // 
@@ -241,38 +276,6 @@
             this.clickNb.TabStop = false;
             this.clickNb.Text = "groupBox1";
             // 
-            // sTextbox
-            // 
-            this.sTextbox.Location = new System.Drawing.Point(7, 214);
-            this.sTextbox.Name = "sTextbox";
-            this.sTextbox.Size = new System.Drawing.Size(120, 20);
-            this.sTextbox.TabIndex = 10;
-            // 
-            // sLabel
-            // 
-            this.sLabel.AutoSize = true;
-            this.sLabel.Location = new System.Drawing.Point(3, 198);
-            this.sLabel.Name = "sLabel";
-            this.sLabel.Size = new System.Drawing.Size(49, 13);
-            this.sLabel.TabIndex = 9;
-            this.sLabel.Text = "Seconds";
-            // 
-            // mTextbox
-            // 
-            this.mTextbox.Location = new System.Drawing.Point(6, 266);
-            this.mTextbox.Name = "mTextbox";
-            this.mTextbox.Size = new System.Drawing.Size(120, 20);
-            this.mTextbox.TabIndex = 12;
-            // 
-            // mLabel
-            // 
-            this.mLabel.AutoSize = true;
-            this.mLabel.Location = new System.Drawing.Point(2, 250);
-            this.mLabel.Name = "mLabel";
-            this.mLabel.Size = new System.Drawing.Size(44, 13);
-            this.mLabel.TabIndex = 11;
-            this.mLabel.Text = "Minutes";
-            // 
             // Srak
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -290,13 +293,13 @@
             this.Load += new System.EventHandler(this.Srak_Load);
             this.mouseGBox.ResumeLayout(false);
             this.mouseGBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mTextbox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sTextbox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.msTextbox)).EndInit();
             this.kybdGBox.ResumeLayout(false);
             this.kybdGBox.PerformLayout();
             this.clickNb.ResumeLayout(false);
             this.clickNb.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sTextbox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mTextbox)).EndInit();
             this.ResumeLayout(false);
 
         }

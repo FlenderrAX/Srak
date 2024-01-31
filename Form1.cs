@@ -126,6 +126,14 @@ namespace Srak
         {
             KeyboardHook.Stop();
         }
+        private void sTextBox_Changed(object sender, FormClosingEventArgs e)
+        {
+
+        }
+        private void mTextBox_Changed(object sender, FormClosingEventArgs e)
+        {
+
+        }
 
         private void ChangedCommitted_Click(object sender, EventArgs e)
         {
@@ -346,6 +354,30 @@ namespace Srak
             }
             else {
                 clickAmount = "double";
+            }
+        }
+
+        private void msTextbox_ValueChanged(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(msTextbox.Text))
+            {
+                msTextbox.Text = "100";
+            }
+        }
+
+        private void sTextbox_Validated(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(sTextbox.Text))
+            {
+                sTextbox.Text = "0";
+            }
+        }
+
+        private void mTextbox_Validated(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(mTextbox.Text))
+            {
+                mTextbox.Text = "0";
             }
         }
     }
