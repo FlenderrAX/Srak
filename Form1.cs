@@ -34,6 +34,7 @@ namespace Srak
         Keys usrKybdHotkey = Keys.None;
         string clickAmount = "single";
         string usrBtn = "left";
+        int ms;
 
         public Srak()
         {
@@ -50,6 +51,10 @@ namespace Srak
             if (e.KeyCode == usrHotkey)
             {
                 ToggleAuto();
+            }
+            else if (e.KeyCode == usrKybdHotkey)
+            {
+                ToggleKybdAuto();
             }
         }
 
@@ -117,10 +122,19 @@ namespace Srak
         private void InsertKey_Click(object sender, EventArgs e)
         {
             insertKey.Text = "Press a key...";
-            this.OnKeyDown(new KeyEventArgs(usrKybdHotkey));
-            kybdKeyLabel.Text = usrKybdHotkey.ToString();
+
+            using (var keyInputDialog = new KeyInputDialog())
+            {
+                if (keyInputDialog.ShowDialog() == DialogResult.OK)
+                {
+                    usrKybdHotkey = keyInputDialog.SelectedKey;
+                    kybdKeyLabel.Text = usrKybdHotkey.ToString();
+                }
+            }
+
             insertKey.Text = "Change Key";
         }
+
 
         private void Srak_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -205,7 +219,6 @@ namespace Srak
                                 }
                             }));
 
-                            int ms;
                             ms = int.Parse(msTextbox.Text) + (int.Parse(sTextbox.Text) * 1000) + (int.Parse(mTextbox.Text) * 60000);
                             Thread.Sleep(ms);
                         }
@@ -217,8 +230,42 @@ namespace Srak
                 enableMouseAuto.Enabled = true;
                 disableAuto.Enabled = false;
                 msTextbox.Enabled = true;
+                sTextbox.Enabled = true;
+                mTextbox.Enabled = true;
             }
         }
+
+        private async void ToggleKybdAuto()
+        {
+            isActive = !isActive;
+            if (isActive)
+            {
+                msTextbox.Enabled = false;
+                sTextbox.Enabled = false;
+                mTextbox.Enabled = false;
+                enableMouseAuto.Enabled = false;
+                disableAuto.Enabled = true;
+
+                await Task.Run(() =>
+                {
+                    while (isActive)
+                    {
+
+                        ms = int.Parse(msTextbox.Text) + (int.Parse(sTextbox.Text) * 1000) + (int.Parse(mTextbox.Text) * 60000);
+                        Thread.Sleep(ms);
+                    }
+                });
+            }
+            else
+            {
+                enableMouseAuto.Enabled = true;
+                disableAuto.Enabled = false;
+                msTextbox.Enabled = true;
+                sTextbox.Enabled = true;
+                mTextbox.Enabled = true;
+            }
+        }
+
 
         private static void PerformDoubleMouseClick(string button, int x, int y)
         {
